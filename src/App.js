@@ -1,25 +1,60 @@
-import logo from './logo.svg';
-import './App.css';
+import {useState} from 'react'
+
+
 
 function App() {
+const [name, setName]=useState()
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='container'>
+    <div className='inner-container'>
+    <div className='cards'>
+
+    <div className='card-one'>
+    <p className='card-number'>0000 0000 0000 0000</p>
+    <p className='card-holder'>Jane Appleseed</p>
+    <p className='exp-date'>00/00</p>
     </div>
-  );
+
+    <div className='card-two'>
+    
+    </div>
+    </div>
+    <div className='form'>
+
+    <label>Cardholder name</label>
+    <input type="text" placeholder='e.g. Jane Appleseed'></input>
+
+    <label>Card number</label>
+    <input type="number" placeholder='e.g. 1234 5678 9123 0000' value={name}></input>
+
+    <div className='details'>
+
+    <div className='date'>
+    <label>Exp. date (MM/yy)</label>
+
+    <div className='date-input'>
+    <input type="number" placeholder='MM'></input>
+    <input type="number" placeholder='YY'></input>
+    </div>
+  
+    </div>
+    
+    <div className='cvc'>
+    <label>Cvc</label>
+    <input type="number" placeholder='e.g. 123'></input>
+    </div>
+   
+    </div>
+  
+
+    <button>confirm</button>
+
+    </div>
+    </div>
+    </div>
+  )
 }
 
-export default App;
+export default App
