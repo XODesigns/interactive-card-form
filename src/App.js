@@ -3,7 +3,7 @@ import {useState} from 'react'
 
 
 function App() {
-const [name, setName]=useState()
+const [name, setName]=useState('e.g. Jane Appleseed')
 
 
   return (
@@ -24,7 +24,7 @@ const [name, setName]=useState()
     <div className='form'>
 
     <label>Cardholder name</label>
-    <input type="text" placeholder='e.g. Jane Appleseed'></input>
+    <input type="text" placeholder={name}></input>
 
     <label>Card number</label>
     <input type="number" placeholder='e.g. 1234 5678 9123 0000' value={name}></input>
