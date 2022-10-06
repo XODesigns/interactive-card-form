@@ -5,7 +5,18 @@ import Back from './images/bg-card-back.png'
 
 
 function App() {
-const [name, setName]=useState()
+const [name, setName]= useState("")
+const [cardNumber, setCardNumber] = useState("")
+
+function handleName(event){
+  const newValue = event.target.value
+setName(newValue)
+}
+
+function handleNumber(event){
+  const newValue = event.target.value
+setCardNumber(newValue)
+}
 
 
   return (
@@ -15,8 +26,8 @@ const [name, setName]=useState()
 
     <div className='card-one'>
     <img src={Front} alt="card front"/>
-    <p className='card-number'>0000 0000 0000 0000</p>
-    <p className='card-holder'>Jane Appleseed</p>
+    <p className='card-number'>{cardNumber ? cardNumber : "0000 0000 0000 0000"}</p>
+    <p className='card-holder'>{name ? name : "Jane Appleseed"}</p>
     <p className='exp-date'>00/00</p>
     </div>
 
@@ -27,10 +38,10 @@ const [name, setName]=useState()
     <div className='form'>
 
     <label>Cardholder name</label>
-    <input type="text" placeholder={name}></input>
+    <input type="text" placeholder='e.g. Jane Appleseed' value={name} onChange={handleName} />
 
     <label>Card number</label>
-    <input type="number" placeholder='e.g. 1234 5678 9123 0000' value={name}></input>
+    <input type="number" placeholder='e.g. 1234 5678 9123 0000' value={cardNumber} onChange={handleNumber} ></input>
 
     <div className='details'>
 
