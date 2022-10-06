@@ -24,22 +24,23 @@
    grid-column: 2/6;
    grid-row:2/4;
    display:grid;
-   grid-template-columns:repeat(4, 1fr);  
+   grid-template-columns:repeat(4, 150px);  
 }
 
 .card-one{
     grid-column: 1/4;
-    background-image: url('../images/bg-card-front.png');
+    /* background-image: url('../images/bg-card-front.png'); */
     background-repeat: no-repeat;
     background-size: contain;
-    margin-bottom: 5%;
     color:hsl(0, 0%, 100%);
-    padding:5%;
 
     display: grid;
     grid-template-columns: repeat(2, 2fr) 1fr;
     grid-template-rows: 2% repeat(4, 10%) 2%;
-    gap:8px;
+}
+
+.card-one img, .card-two img {
+    width:600px;
 }
 
 .card-number{
@@ -64,7 +65,7 @@
 
 .card-two{
     grid-column: 2/5;
-    background-image: url('../images/bg-card-back.png');
+    /* background-image: url('../images/bg-card-back.png'); */
     background-repeat: no-repeat;
     background-size:contain;
 }

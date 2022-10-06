@@ -1,9 +1,11 @@
 import {useState} from 'react'
+import Front from './images/bg-card-front.png'
+import Back from './images/bg-card-back.png'
 
 
 
 function App() {
-const [name, setName]=useState('e.g. Jane Appleseed')
+const [name, setName]=useState()
 
 
   return (
@@ -12,13 +14,14 @@ const [name, setName]=useState('e.g. Jane Appleseed')
     <div className='cards'>
 
     <div className='card-one'>
+    <img src={Front} alt="card front"/>
     <p className='card-number'>0000 0000 0000 0000</p>
     <p className='card-holder'>Jane Appleseed</p>
     <p className='exp-date'>00/00</p>
     </div>
 
     <div className='card-two'>
-    
+    <img src={Back} alt="card back"/>
     </div>
     </div>
     <div className='form'>
