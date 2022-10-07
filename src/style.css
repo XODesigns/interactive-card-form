@@ -34,33 +34,79 @@
     background-size: contain;
     color:hsl(0, 0%, 100%);
 
-    display: grid;
-    grid-template-columns: repeat(2, 2fr) 1fr;
-    grid-template-rows: 2% repeat(4, 10%) 2%;
+    display: flex;
+    flex-direction: column;
+    /* grid-template-columns: repeat(2, 2fr) 1fr;
+    grid-template-rows: 2% repeat(4, 10%) 2%; */
+    justify-content: center;
+    align-items: center;
+    width:600px;
 }
 
 .card-one img, .card-two img {
     width:600px;
+    height:330px;
+    position: relative;
+}
+
+.card-one-container{
+    position:absolute;
+    height: 280px;
 }
 
 .card-number{
-    grid-column: 1/4;
-    grid-row: 4/5;
     text-align: center;
-    font-size:25px;
+    font-size:2.5rem;
     letter-spacing: 2px;
+    margin-bottom: 2rem;
+  
+}
+
+.circles{
+    display: flex;
+    align-items: center;
+    margin-bottom:7rem;
+}
+
+.circle-one{
+    background-color: hsl(0, 0%, 100%);
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+    margin-right:12px;
+}
+
+.circle-two{
+    border: 2px solid hsl(0, 0%, 100%);
+    width: 20px;
+    height: 20px;
+    border-radius: 50px;
+}
+
+
+.name-date{
+ display: flex; 
+ max-width: 600px; 
+ justify-content: center; 
 }
 
 .card-holder{
-    grid-column: 1/2;
-    grid-row: 5/6; 
+    /* grid-column: 1/2;
+    grid-row: 5/6;  */
     font-size:16px; 
+    text-align: left;
+    width: 50%;
+    text-transform: uppercase;
+    letter-spacing: 2px;
 }
 
 .exp-date{
-    grid-column:3/4;
-    grid-row:5/6;
+    /* grid-column:3/4;
+    grid-row:5/6; */
     font-size:16px; 
+    text-align: right;
+    width: 50%;
+    margin:0;
 }
 
 .card-two{
@@ -68,8 +114,19 @@
     /* background-image: url('../images/bg-card-back.png'); */
     background-repeat: no-repeat;
     background-size:contain;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width:600px;
 }
 
+.card-cvc{
+    position:absolute;
+    left:780px;
+    color:hsl(0, 0%, 100%);
+    letter-spacing: 2px;
+}
 
 
 .form{
