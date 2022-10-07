@@ -18,7 +18,6 @@ function handleNumber(event){
 setCardNumber(newValue)
 }
 
-
   return (
     <div className='container'>
     <div className='inner-container'>
