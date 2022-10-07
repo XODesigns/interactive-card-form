@@ -25,16 +25,34 @@ setCardNumber(newValue)
     <div className='cards'>
 
     <div className='card-one'>
+
     <img src={Front} alt="card front"/>
+
+    <div className='card-one-container'>
+    
+    <div className='circles'>
+    <div className='circle-one'></div>
+    <div className='circle-two'></div>
+    </div>
+
     <p className='card-number'>{cardNumber ? cardNumber : "0000 0000 0000 0000"}</p>
+    
+    <div  className='name-date'>
     <p className='card-holder'>{name ? name : "Jane Appleseed"}</p>
     <p className='exp-date'>00/00</p>
     </div>
 
+    </div>
+    
+    </div>
+
     <div className='card-two'>
     <img src={Back} alt="card back"/>
+    <p className='card-cvc'>000</p>
     </div>
+
     </div>
+
     <div className='form'>
 
     <label>Cardholder name</label>
@@ -46,7 +64,7 @@ setCardNumber(newValue)
     <div className='details'>
 
     <div className='date'>
-    <label>Exp. date (MM/yy)</label>
+    <label>Exp. date (MM/YY)</label>
 
     <div className='date-input'>
     <input type="number" placeholder='MM'></input>
