@@ -59,7 +59,7 @@
     font-size:2.5rem;
     letter-spacing: 2px;
     margin-bottom: 2rem;
-  
+  width:500px;
 }
 
 .circles{
@@ -147,7 +147,7 @@ label{
     padding-bottom:8px;
 }
 
-input[type=text], input[type=number]{
+input[type=text], input[type=number], input[type=tel]{
     width:100%;
     border-radius: 5px;
     border: 1px hsl(270, 3%, 87%) solid;
@@ -156,9 +156,17 @@ input[type=text], input[type=number]{
     margin-bottom:15px;
 }
 
-input[type=text]::placeholder, input[type=number]::placeholder{
+input[type=text]:focus,
+input[type=number]:focus,
+input[type=tel]:focus {
+    outline: none;
+}
+
+input[type=text]::placeholder, input[type=number]::placeholder, input[type=tel]::placeholder{
     color:hsl(270, 3%, 87%);
 }
+
+
 .details{
     display: flex;
 }
