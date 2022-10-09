@@ -1,5 +1,6 @@
 import {useState} from 'react'
-import {useForm} from 'react-hook-form'
+// import {useForm} from 'react-hook-form'
+import { Formik } from 'formik'
 import Front from './images/bg-card-front.png'
 import Back from './images/bg-card-back.png'
 
@@ -11,6 +12,8 @@ const [cardNumber, setCardNumber] = useState("")
 const [month, setMonth] = useState("MM")
 const [year, setYear] = useState("YY")
 const [cvc, setCvc] = useState("")
+
+
 
 function handleName(event){
   const newValue = event.target.value
@@ -96,7 +99,7 @@ const numberPlaceholder = "0000 0000 0000 0000"
     <div className='form'>
 
     <label>Cardholder name</label>
-    <input type="text" placeholder='e.g. Jane Appleseed' value={name} onChange={handleName} />
+    <input type="text" placeholder='e.g. Jane Appleseed' value={name} onChange={handleName} {...register('name', {value:name})} />
 
     <label>Card number</label>
     <input type="tel" maxLength="19" placeholder='e.g. 1234 5678 9123 0000' value={cardNumber} onChange={handleNumber} ></input>
