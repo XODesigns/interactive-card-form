@@ -1,7 +1,7 @@
 import {useState} from 'react'
-// import {useForm} from 'react-hook-form'
-import { Formik, Form, Field, ErrorMessage } from 'formik'
-import * as Yup from 'yup'
+import {useForm} from 'react-hook-form'
+// import { Formik, Form, Field, ErrorMessage } from 'formik'
+// import * as Yup from 'yup'
 import Front from './images/bg-card-front.png'
 import Back from './images/bg-card-back.png'
 
@@ -13,13 +13,8 @@ const [cardNumber, setCardNumber] = useState("")
 const [month, setMonth] = useState("MM")
 const [year, setYear] = useState("YY")
 const [cvc, setCvc] = useState("")
-
-
-const CreditCardSchema = Yup.object().shape({
-  name: Yup.string()
-  .required('Name is required')
-})
-
+const {register, handleSubmit} = useForm()
+const onSubmit = data => console.log(data);
 
 
 function handleName(event){
@@ -119,28 +114,12 @@ const numberPlaceholder = "0000 0000 0000 0000"
     </div>
 
     </div>
-
-    <Formik initialValues={{
-      name: '',
-      number: '',
-      month:'',
-      year: '',
-      cvc:''
-    }}
-    validationSchema={CreditCardSchema}
-    onSubmit= {values => {
-      console.log(values)
-    }}
-    >
-
-    {({ errors, touched}) => (
-
    
-    <form className='form'>
+    <form onSubmit ={handleSubmit(onSubmit)} className='form'>
 
     <label>Cardholder name</label>
-    <Field name="name" placeholder='e.g. Jane Appleseed' value={name} onChange={handleName}  />
-    {errors.name && touched.name ? (<div>{errors.name}</div>) : null }
+    <input type="text" placeholder='e.g. Jane Appleseed'  onChange={handleName} {...register("holderName", {required: true, value: `${name}` })} />
+
     <label>Card number</label>
     <input type="tel" maxLength="19" placeholder='e.g. 1234 5678 9123 0000' value={cardNumber} onChange={handleNumber} ></input>
 
@@ -168,8 +147,6 @@ const numberPlaceholder = "0000 0000 0000 0000"
     <button type='submit'>confirm</button>
 
     </form>
-    )}
-    </Formik>
 
     </div>
     </div>
