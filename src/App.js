@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import {useRef, useState} from 'react'
 // import {useForm} from 'react-hook-form'
 import { Formik, Form, Field} from 'formik'
 import * as Yup from 'yup'
@@ -8,12 +8,14 @@ import Back from './images/bg-card-back.png'
 
 
 
+
 function App() {
 const [name, setName]= useState("")
 const [cardNumber, setCardNumber] = useState("")
 const [month, setMonth] = useState("MM")
 const [year, setYear] = useState("YY")
 const [cvc, setCvc] = useState("")
+const ref = useRef(null)
 
 
 const CreditCardSchema = Yup.object().shape({
@@ -92,6 +94,8 @@ const numberPlaceholder = "0000 0000 0000 0000"
 // numberArr.push(newNumber)
 // console.log(newNumber)
 
+
+
   return (
 
    
@@ -130,7 +134,9 @@ const numberPlaceholder = "0000 0000 0000 0000"
 
     </div>
 
-    <Formik initialValues={{
+    <Formik 
+    innerRef={ref}
+    initialValues={{
       holderName: '',
       cardNumber: '',
       month:'',
@@ -138,18 +144,18 @@ const numberPlaceholder = "0000 0000 0000 0000"
       cvc:'',
     }}
     validationSchema={CreditCardSchema}
-    onSubmit={values => {
-      console.log(values)
-    }}
+     validateOnChange={false}
+  validateOnBlur={false}
+    onSubmit={() => {}}
     >
 
-    {({ errors, touched}) => (
+    {({ errors, touched, handleChange, values, handleSubmit}) => (
 
    
-    <Form className='form'>
+    <Form className='form' onSubmit={handleSubmit}>
 
     <label>Cardholder name</label>
-    <Field className={errors.holderName ? "error" : "name"} name="holderName" type="text" placeholder='e.g. Jane Appleseed' value={name} onChange={handleName}  />
+    <Field className={errors.holderName ? "error" : "name"} name="holderName" type="text" placeholder='e.g. Jane Appleseed' value={values.holderName} onChange={handleChange}  />
     {errors.holderName && touched.holderName ? (<div className='error-message'>{errors.holderName}</div>) : null }
 
     <label>Card number</label>
