@@ -13,7 +13,7 @@ const [cardNumber, setCardNumber] = useState("")
 const [month, setMonth] = useState("MM")
 const [year, setYear] = useState("YY")
 const [cvc, setCvc] = useState("")
-const {register, handleSubmit} = useForm()
+const {register, handleSubmit, setValue} = useForm()
 const onSubmit = data => console.log(data);
 
 
@@ -118,7 +118,7 @@ const numberPlaceholder = "0000 0000 0000 0000"
     <form onSubmit ={handleSubmit(onSubmit)} className='form'>
 
     <label>Cardholder name</label>
-    <input type="text" placeholder='e.g. Jane Appleseed'  onChange={handleName} {...register("holderName", {required: true, value: `${name}` })} />
+    <input type="text" placeholder='e.g. Jane Appleseed'  onChange={handleName} {...register("holderName", {required: true })}  />
 
     <label>Card number</label>
     <input type="tel" maxLength="19" placeholder='e.g. 1234 5678 9123 0000' value={cardNumber} onChange={handleNumber} ></input>
