@@ -1,7 +1,8 @@
 import {useState} from 'react'
 // import {useForm} from 'react-hook-form'
-import { Formik, Form, Field, ErrorMessage } from 'formik'
+import { Formik, Form, Field} from 'formik'
 import * as Yup from 'yup'
+import 'yup-phone'
 import Front from './images/bg-card-front.png'
 import Back from './images/bg-card-back.png'
 
@@ -16,8 +17,17 @@ const [cvc, setCvc] = useState("")
 
 
 const CreditCardSchema = Yup.object().shape({
-  name: Yup.string()
-  .required('Name is required')
+  holderName: Yup.string()
+  .required('Name is required'),
+  cardNumber: Yup.string()
+  .required('Card number required')
+  .phone('Wrong format, numbers only'),
+  month: Yup.string()
+  .required(`Can't be blank`),
+  year: Yup.string()
+  .required(`Can't be blank`),
+  cvc: Yup.string()
+  .required(`Can't be blank`)
 })
 
 
@@ -121,14 +131,14 @@ const numberPlaceholder = "0000 0000 0000 0000"
     </div>
 
     <Formik initialValues={{
-      name: '',
-      number: '',
+      holderName: '',
+      cardNumber: '',
       month:'',
       year: '',
-      cvc:''
+      cvc:'',
     }}
     validationSchema={CreditCardSchema}
-    onSubmit= {values => {
+    onSubmit={values => {
       console.log(values)
     }}
     >
@@ -136,13 +146,16 @@ const numberPlaceholder = "0000 0000 0000 0000"
     {({ errors, touched}) => (
 
    
-    <form className='form'>
+    <Form className='form'>
 
     <label>Cardholder name</label>
-    <Field name="name" placeholder='e.g. Jane Appleseed' value={name} onChange={handleName}  />
-    {errors.name && touched.name ? (<div>{errors.name}</div>) : null }
+    <Field className={errors.holderName ? "error" : "name"} name="holderName" type="text" placeholder='e.g. Jane Appleseed' value={name} onChange={handleName}  />
+    {errors.holderName && touched.holderName ? (<div className='error-message'>{errors.holderName}</div>) : null }
+
     <label>Card number</label>
-    <input type="tel" maxLength="19" placeholder='e.g. 1234 5678 9123 0000' value={cardNumber} onChange={handleNumber} ></input>
+
+    <Field className={errors.cardNumber ? "error" :"name"} name="cardNumber" type="tel" maxLength="19" placeholder='e.g. 1234 5678 9123 0000' value={cardNumber} onChange={handleNumber} />
+    {errors.cardNumber && touched.cardNumber ? (<div className='error-message'>{errors.cardNumber}</div>) : null }
 
     <div className='details'>
 
@@ -151,23 +164,25 @@ const numberPlaceholder = "0000 0000 0000 0000"
 
     <div className='date-input'>
     {/* <input type="tel" onChange={handleMonth} maxLength="2" placeholder='MM'></input> */}
-     <input type="number" onChange={handleMonth} placeholder='MM' value={month}></input>
-    <input type="number" onChange={handleYear} placeholder='YY' value={year} ></input>
+     <Field className={errors.month ? "error" :"name"} name="month" type="number" onChange={handleMonth} placeholder='MM' value={month} />
+    <Field className={errors.year ? "error" :"name"} name="year" type="number" onChange={handleYear} placeholder='YY' value={year} />
     </div>
+    {errors.month || errors.year  ? (<div className='error-message'>{errors.month}</div>) : null }
   
     </div>
     
     <div className='cvc'>
     <label>Cvc</label>
-    <input type="number" onChange={handleCvc}  placeholder='e.g. 123' value={cvc}></input>
+    <Field className={errors.cvc ? "error" :"name"} type="number" onChange={handleCvc}  placeholder='e.g. 123' value={cvc} />
+    {errors.cvc  ? (<div className='error-message'>{errors.cvc}</div>) : null }
     </div>
-   
+    
     </div>
   
 
     <button type='submit'>confirm</button>
 
-    </form>
+    </Form>
     )}
     </Formik>
 
