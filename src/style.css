@@ -198,4 +198,5 @@ button{
     color: hsl(0, 0%, 100%);
     width: 106%;
     margin-top:15px;
+    cursor: pointer;
 }

@@ -1,6 +1,7 @@
 import {useState} from 'react'
 // import {useForm} from 'react-hook-form'
-import { Formik } from 'formik'
+import { Formik, Form, Field, ErrorMessage } from 'formik'
+import * as Yup from 'yup'
 import Front from './images/bg-card-front.png'
 import Back from './images/bg-card-back.png'
 
@@ -12,6 +13,12 @@ const [cardNumber, setCardNumber] = useState("")
 const [month, setMonth] = useState("MM")
 const [year, setYear] = useState("YY")
 const [cvc, setCvc] = useState("")
+
+
+const CreditCardSchema = Yup.object().shape({
+  name: Yup.string()
+  .required('Name is required')
+})
 
 
 
@@ -35,7 +42,7 @@ const max = 12
 
 const newMonth = Math.max(min, Math.min(max, Number(event.target.value)))
 
-// // const limit = 2
+// const limit = 2
 // .replace(/\s|[^0-9]+/g, "")
 //         .match(/.{1,2}/g)
 //         ?.join(" ") ?? "";
@@ -43,17 +50,30 @@ setMonth(newMonth)
 }
 
 function handleYear(event){
-const newYear = event.target.value
-    const limit = 2;
+// const newYear = event.target.value
+//     const limit = 2;
 
-setYear(newYear.slice(0, limit))
+// setYear(newYear.slice(0, limit))
+const min = 1
+const max = 99
+
+const newYear = Math.max(min, Math.min(max, Number(event.target.value)))
+setYear(newYear)
+
 }
 
-function handleCvc(event){
-const newCvc = event.target.value
-  const limit = 3;
 
-setCvc(newCvc.slice(0, limit))
+function handleCvc(event){
+  const min = 1
+  const max = 999
+  
+  const newCvc= Math.max(min, Math.min(max, Number(event.target.value)))
+  setCvc(newCvc)
+
+// const newCvc = event.target.value
+//   const limit = 3;
+
+// setCvc(newCvc.slice(0, limit))
 }
 
 //Dynamic number split, so the numbers can be updated correctly.
@@ -63,6 +83,10 @@ const numberPlaceholder = "0000 0000 0000 0000"
 // console.log(newNumber)
 
   return (
+
+   
+
+
     <div className='container'>
     <div className='inner-container'>
     <div className='cards'>
@@ -96,11 +120,27 @@ const numberPlaceholder = "0000 0000 0000 0000"
 
     </div>
 
-    <div className='form'>
+    <Formik initialValues={{
+      name: '',
+      number: '',
+      month:'',
+      year: '',
+      cvc:''
+    }}
+    validationSchema={CreditCardSchema}
+    onSubmit= {values => {
+      console.log(values)
+    }}
+    >
+
+    {({ errors, touched}) => (
+
+   
+    <form className='form'>
 
     <label>Cardholder name</label>
-    <input type="text" placeholder='e.g. Jane Appleseed' value={name} onChange={handleName} {...register('name', {value:name})} />
-
+    <Field name="name" placeholder='e.g. Jane Appleseed' value={name} onChange={handleName}  />
+    {errors.name && touched.name ? (<div>{errors.name}</div>) : null }
     <label>Card number</label>
     <input type="tel" maxLength="19" placeholder='e.g. 1234 5678 9123 0000' value={cardNumber} onChange={handleNumber} ></input>
 
@@ -125,11 +165,15 @@ const numberPlaceholder = "0000 0000 0000 0000"
     </div>
   
 
-    <button>confirm</button>
+    <button type='submit'>confirm</button>
+
+    </form>
+    )}
+    </Formik>
 
     </div>
     </div>
-    </div>
+
   )
 }
 
