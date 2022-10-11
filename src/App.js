@@ -155,10 +155,10 @@ onSubmit(values) {
 
     <label>Cardholder name</label>
     <input type="text" name="holderName" placeholder='e.g. Jane Appleseed'  onChange={formik.handleChange} value={formik.values.holderName}  />
-    {formik.errors.holderName}
+    {formik.errors.holderName ? (<div className='error-message'>{formik.errors.holderName}</div>) : null }
     <label>Card number</label>
     <input type="tel" name="cardNumber" maxLength="19" placeholder='e.g. 1234 5678 9123 0000' value={formik.values.cardNumber} onChange={formik.handleChange} />
-    {formik.errors.cardNumber}
+    {formik.errors.cardNumber ? (<div className='error-message'>{formik.errors.cardNumber}</div>) : null}
     <div className='details'>
 
     <div className='date'>
@@ -169,12 +169,13 @@ onSubmit(values) {
      <input type="number"  name="expMonth" onChange={formik.handleChange} placeholder='MM' value={formik.values.expMonth} />
     <input type="number" name="expYear" onChange={formik.handleChange} placeholder='YY' value={formik.values.expYear} />
     </div>
-    {formik.errors.expMonth ? formik.errors.expMonth : formik.errors.expYear }
+    {formik.errors.expMonth ? (<div className='error-message'>{formik.errors.expMonth}</div>) : (<div className='error-message'>{formik.errors.expYear}</div>) }
     </div>
     
     <div className='cvc'>
     <label>Cvc</label>
     <input type="number" name="cvc" onChange={formik.handleChange}  placeholder='e.g. 123' value={formik.values.cvc} />
+    {formik.errors.cvc ? (<div className='error-message'>{formik.errors.cvc}</div>) : null}
     </div>
    
     </div>

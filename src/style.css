@@ -200,3 +200,17 @@ button{
     margin-top:15px;
     cursor: pointer;
 }
+
+.error{
+    width:100%;
+    border-radius: 5px;
+    border: 1px hsl(0, 100%, 66%) solid;
+    padding:10px;
+    color:hsl(270, 3%, 87%);
+    margin-bottom:15px; 
+}
+
+.error-message{
+    color:hsl(0, 100%, 66%);
+    padding-bottom:12px;
+}
