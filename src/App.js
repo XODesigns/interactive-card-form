@@ -9,12 +9,26 @@ import Back from './images/bg-card-back.png'
 
 
 function App() {
-const [name, setName]= useState("")
-const [cardNumber, setCardNumber] = useState("")
-const [month, setMonth] = useState("MM")
-const [year, setYear] = useState("YY")
-const [cvc, setCvc] = useState("")
+// const [name, setName]= useState("")
+// const [cardNumber, setCardNumber] = useState("")
+// const [month, setMonth] = useState("MM")
+// const [year, setYear] = useState("YY")
+// const [cvc, setCvc] = useState("")
 
+
+const CreditCardSchema =  Yup.object().shape({
+  holderName: Yup.string()
+  .required('Name is required'),
+  cardNumber: Yup.string()
+  .required('Card number required')
+  .phone('Wrong format, numbers only'),
+  month: Yup.string()
+  .required(`Can't be blank`),
+  year: Yup.string()
+  .required(`Can't be blank`),
+  cvc: Yup.string()
+  .required(`Can't be blank`)
+})
 
 
 const formik = useFormik({
@@ -27,20 +41,6 @@ const formik = useFormik({
   },
 //   validationSchema={CreditCardSchema}
 
-
-CreditCardSchema: Yup.object().shape({
-  holderName: Yup.string()
-  .required('Name is required'),
-  cardNumber: Yup.string()
-  .required('Card number required')
-  .phone('Wrong format, numbers only'),
-  month: Yup.string()
-  .required(`Can't be blank`),
-  year: Yup.string()
-  .required(`Can't be blank`),
-  cvc: Yup.string()
-  .required(`Can't be blank`)
-}),
 //    validateOnChange={false},
 // validateOnBlur={false},
   onSubmit(values) {
@@ -99,15 +99,18 @@ const numberPlaceholder = "0000 0000 0000 0000"
     </div>
 
  
+<Formik
+validationSchema={CreditCardSchema}
+formik
+>  
 
+{({ errors, touched, handleChange, values, handleSubmit}) => (
 
-
-   
-    <form className='form' onSubmit={formik.handleSubmit}>
+    <Form className='form' onSubmit={formik.handleSubmit}>
 
     <label>Cardholder name</label>
-    <input className={formik.errors.holderName ? "error" : "name"} name="holderName" type="text" placeholder='e.g. Jane Appleseed' value={formik.values.holderName} onChange={formik.handleChange}  />
-    {formik.errors.holderName && formik.touched.holderName ? (<div className='error-message'>{formik.errors.holderName}</div>) : null }
+    <input className={errors.holderName ? "error" : "name"} name="holderName" type="text" placeholder='e.g. Jane Appleseed' value={formik.values.holderName} onChange={formik.handleChange}  />
+    {errors.holderName && touched.holderName ? (<div className='error-message'>{errors.holderName}</div>) : null }
 
     <label>Card number</label>
 
@@ -139,8 +142,9 @@ const numberPlaceholder = "0000 0000 0000 0000"
 
     <button type='submit'>confirm</button>
 
-    </form>
-
+    </Form>
+    )}
+    </Formik>
 
     </div>
     </div>
