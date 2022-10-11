@@ -1,6 +1,6 @@
-import {useState} from 'react'
-import {useForm} from 'react-hook-form'
-// import { Formik, Form, Field, ErrorMessage } from 'formik'
+import {useEffect, useState} from 'react'
+// import {useForm} from 'react-hook-form'
+import { formik, Form, Field, useFormik, useFormikContext } from 'formik'
 // import * as Yup from 'yup'
 import Front from './images/bg-card-front.png'
 import Back from './images/bg-card-back.png'
@@ -13,8 +13,8 @@ const [cardNumber, setCardNumber] = useState("")
 const [month, setMonth] = useState("MM")
 const [year, setYear] = useState("YY")
 const [cvc, setCvc] = useState("")
-const {register, handleSubmit, setValue} = useForm()
-const onSubmit = data => console.log(data);
+// const {register, handleSubmit, setValue} = useForm()
+// const onSubmit = data => console.log(data);
 
 
 function handleName(event){
@@ -37,18 +37,11 @@ const max = 12
 
 const newMonth = Math.max(min, Math.min(max, Number(event.target.value)))
 
-// const limit = 2
-// .replace(/\s|[^0-9]+/g, "")
-//         .match(/.{1,2}/g)
-//         ?.join(" ") ?? "";
 setMonth(newMonth)
 }
 
 function handleYear(event){
-// const newYear = event.target.value
-//     const limit = 2;
 
-// setYear(newYear.slice(0, limit))
 const min = 1
 const max = 99
 
@@ -65,22 +58,64 @@ function handleCvc(event){
   const newCvc= Math.max(min, Math.min(max, Number(event.target.value)))
   setCvc(newCvc)
 
-// const newCvc = event.target.value
-//   const limit = 3;
-
-// setCvc(newCvc.slice(0, limit))
 }
 
 //Dynamic number split, so the numbers can be updated correctly.
 const numberPlaceholder = "0000 0000 0000 0000"
-// const numberArr = []
-// numberArr.push(newNumber)
-// console.log(newNumber)
+
+
+// const FormObserver = () => {
+//   const { values } = useFormikContext();
+//   useEffect(() => {
+//     console.log("FormObserver::values", values);
+//   }, [values]);
+//   return null;
+// };
+
+
+
+const formik = useFormik({
+  initialValues: {
+    holderName: '',
+    cardNumber: '',
+    expMonth: '',
+    expYear: '',
+    cvc:''
+  },
+
+  validate() {
+    const errors = {};
+
+    if(formik.touched.holderName && !formik.values.holderName){
+      errors.holderName = "Name Required"
+    } else if (!/^[A-Za-z]*$/.test(formik.values.holderName)){
+      errors.holderName = "Cardholder name should contain only letters"
+    }
+    if(formik.touched.cardNumber && !formik.values.cardNumber){
+      errors.cardNumber = "Card Number Required"
+    } else if (!/^[0-9]*$/.test(formik.values.cardNumber)){
+      errors.cardNumber = "Wrong format, numbers only"
+    }
+    if(formik.touched.expMonth && !formik.values.expMonth){
+      errors.expMonth = "Can't be blank"
+    }
+    if(formik.touched.expYear && !formik.values.expYear){
+      errors.expYear = "Can't be blank"
+    }
+    if(formik.touched.cvc && !formik.values.cvc){
+      errors.cvc = "Can't be blank"
+  }
+  return errors
+},
+onSubmit(values) {
+  // alert(JSON.stringify(values, null, 2))
+}
+
+})
+
+
 
   return (
-
-   
-
 
     <div className='container'>
     <div className='inner-container'>
@@ -97,11 +132,11 @@ const numberPlaceholder = "0000 0000 0000 0000"
     <div className='circle-two'></div>
     </div>
 
-    <p className='card-number'>{cardNumber ? cardNumber : numberPlaceholder}</p>
+    <p className='card-number'>{formik.values.cardNumber ? formik.values.cardNumber : numberPlaceholder}</p>
     
-    <div  className='name-date'>
-    <p className='card-holder'>{name ? name : "Jane Appleseed"}</p>
-    <p className='exp-date'>{month} / {year}</p>
+    <div className='name-date'>
+    <p className='card-holder'>{formik.values.holderName ? formik.values.holderName : "Jane Appleseed"}</p>
+    <p className='exp-date'>{formik.values.expMonth ? formik.values.expMonth : "00" } / {formik.values.expYear ? formik.values.expYear : "00"}</p>
     </div>
 
     </div>
@@ -110,19 +145,20 @@ const numberPlaceholder = "0000 0000 0000 0000"
 
     <div className='card-two'>
     <img src={Back} alt="card back"/>
-    <p className='card-cvc'>{cvc ? cvc : "000"}</p>
+    <p className='card-cvc'>{formik.values.cvc ? formik.values.cvc : "000"}</p>
     </div>
 
     </div>
    
-    <form onSubmit ={handleSubmit(onSubmit)} className='form'>
+    <form onSubmit ={formik.handleSubmit} className='form'>
+
 
     <label>Cardholder name</label>
-    <input type="text" placeholder='e.g. Jane Appleseed'  onChange={handleName} {...register("holderName", {required: true })}  />
-
+    <input type="text" name="holderName" placeholder='e.g. Jane Appleseed'  onChange={formik.handleChange} value={formik.values.holderName}  />
+    {formik.errors.holderName}
     <label>Card number</label>
-    <input type="tel" maxLength="19" placeholder='e.g. 1234 5678 9123 0000' value={cardNumber} onChange={handleNumber} ></input>
-
+    <input type="tel" name="cardNumber" maxLength="19" placeholder='e.g. 1234 5678 9123 0000' value={formik.values.cardNumber} onChange={formik.handleChange} />
+    {formik.errors.cardNumber}
     <div className='details'>
 
     <div className='date'>
@@ -130,15 +166,15 @@ const numberPlaceholder = "0000 0000 0000 0000"
 
     <div className='date-input'>
     {/* <input type="tel" onChange={handleMonth} maxLength="2" placeholder='MM'></input> */}
-     <input type="number" onChange={handleMonth} placeholder='MM' value={month}></input>
-    <input type="number" onChange={handleYear} placeholder='YY' value={year} ></input>
+     <input type="number"  name="expMonth" onChange={formik.handleChange} placeholder='MM' value={formik.values.expMonth} />
+    <input type="number" name="expYear" onChange={formik.handleChange} placeholder='YY' value={formik.values.expYear} />
     </div>
-  
+    {formik.errors.expMonth ? formik.errors.expMonth : formik.errors.expYear }
     </div>
     
     <div className='cvc'>
     <label>Cvc</label>
-    <input type="number" onChange={handleCvc}  placeholder='e.g. 123' value={cvc}></input>
+    <input type="number" name="cvc" onChange={formik.handleChange}  placeholder='e.g. 123' value={formik.values.cvc} />
     </div>
    
     </div>
