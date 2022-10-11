@@ -1,6 +1,6 @@
-import {useRef, useState} from 'react'
+import {useRef, useState, useEffect} from 'react'
 // import {useForm} from 'react-hook-form'
-import { Formik, Form, Field} from 'formik'
+import { Formik, Form, Field, useFormikContext} from 'formik'
 import * as Yup from 'yup'
 import 'yup-phone'
 import Front from './images/bg-card-front.png'
@@ -34,65 +34,73 @@ const CreditCardSchema = Yup.object().shape({
 
 
 
-function handleName(event){
-  const newValue = event.target.value
-setName(newValue)
-}
+// function handleName(event){
+//   const newValue = event.target.value
+// setName(newValue)
+// }
 
-function handleNumber(event){
-  const newValue = event.target.value
-  .replace(/\s|[^a-z0-9]+/g, "")
-        .match(/.{1,4}/g)
-        ?.join(" ") ?? "";
-setCardNumber(newValue)
-}
-
-function handleMonth(event){
-
-const min = 1
-const max = 12
-
-const newMonth = Math.max(min, Math.min(max, Number(event.target.value)))
-
-// const limit = 2
-// .replace(/\s|[^0-9]+/g, "")
-//         .match(/.{1,2}/g)
+// function handleNumber(event){
+//   const newValue = event.target.value
+//   .replace(/\s|[^a-z0-9]+/g, "")
+//         .match(/.{1,4}/g)
 //         ?.join(" ") ?? "";
-setMonth(newMonth)
-}
+// setCardNumber(newValue)
+// }
 
-function handleYear(event){
-// const newYear = event.target.value
-//     const limit = 2;
+// function handleMonth(event){
 
-// setYear(newYear.slice(0, limit))
-const min = 1
-const max = 99
+// const min = 1
+// const max = 12
 
-const newYear = Math.max(min, Math.min(max, Number(event.target.value)))
-setYear(newYear)
+// const newMonth = Math.max(min, Math.min(max, Number(event.target.value)))
 
-}
+// // const limit = 2
+// // .replace(/\s|[^0-9]+/g, "")
+// //         .match(/.{1,2}/g)
+// //         ?.join(" ") ?? "";
+// setMonth(newMonth)
+// }
+
+// function handleYear(event){
+// // const newYear = event.target.value
+// //     const limit = 2;
+
+// // setYear(newYear.slice(0, limit))
+// const min = 1
+// const max = 99
+
+// const newYear = Math.max(min, Math.min(max, Number(event.target.value)))
+// setYear(newYear)
+
+// }
 
 
-function handleCvc(event){
-  const min = 1
-  const max = 999
+// function handleCvc(event){
+//   const min = 1
+//   const max = 999
   
-  const newCvc= Math.max(min, Math.min(max, Number(event.target.value)))
-  setCvc(newCvc)
+//   const newCvc= Math.max(min, Math.min(max, Number(event.target.value)))
+//   setCvc(newCvc)
 
-// const newCvc = event.target.value
-//   const limit = 3;
+// // const newCvc = event.target.value
+// //   const limit = 3;
 
-// setCvc(newCvc.slice(0, limit))
-}
+// // setCvc(newCvc.slice(0, limit))
+// }
 
 //Dynamic number split, so the numbers can be updated correctly.
 const numberPlaceholder = "0000 0000 0000 0000"
 // const numberArr = []
 // numberArr.push(newNumber)
 // console.log(newNumber)
+
+const FormObserver  = () => {
+  const { values } = useFormikContext();
+  useEffect(() => {
+    console.log("FormObserver::values", values);
+  }, [values]);
+  return null;
+};
 
 
 
@@ -153,6 +161,7 @@ const numberPlaceholder = "0000 0000 0000 0000"
 
    
     <Form className='form' onSubmit={handleSubmit}>
+    <FormObserver />
 
     <label>Cardholder name</label>
     <Field className={errors.holderName ? "error" : "name"} name="holderName" type="text" placeholder='e.g. Jane Appleseed' value={values.holderName} onChange={handleChange}  />
@@ -160,7 +169,7 @@ const numberPlaceholder = "0000 0000 0000 0000"
 
     <label>Card number</label>
 
-    <Field className={errors.cardNumber ? "error" :"name"} name="cardNumber" type="tel" maxLength="19" placeholder='e.g. 1234 5678 9123 0000' value={cardNumber} onChange={handleNumber} />
+    <Field className={errors.cardNumber ? "error" :"name"} name="cardNumber" type="tel" maxLength="19" placeholder='e.g. 1234 5678 9123 0000' value={values.cardNumber} onChange={handleChange} />
     {errors.cardNumber && touched.cardNumber ? (<div className='error-message'>{errors.cardNumber}</div>) : null }
 
     <div className='details'>
@@ -170,8 +179,8 @@ const numberPlaceholder = "0000 0000 0000 0000"
 
     <div className='date-input'>
     {/* <input type="tel" onChange={handleMonth} maxLength="2" placeholder='MM'></input> */}
-     <Field className={errors.month ? "error" :"name"} name="month" type="number" onChange={handleMonth} placeholder='MM' value={month} />
-    <Field className={errors.year ? "error" :"name"} name="year" type="number" onChange={handleYear} placeholder='YY' value={year} />
+     <Field className={errors.month ? "error" :"name"} name="month" type="number" onChange={handleChange} placeholder='MM' value={month} />
+    <Field className={errors.year ? "error" :"name"} name="year" type="number" onChange={handleChange} placeholder='YY' value={year} />
     </div>
     {errors.month || errors.year  ? (<div className='error-message'>{errors.month}</div>) : null }
   
@@ -179,7 +188,7 @@ const numberPlaceholder = "0000 0000 0000 0000"
     
     <div className='cvc'>
     <label>Cvc</label>
-    <Field className={errors.cvc ? "error" :"name"} type="number" onChange={handleCvc}  placeholder='e.g. 123' value={cvc} />
+    <Field className={errors.cvc ? "error" :"name"} type="number" onChange={handleChange} placeholder='e.g. 123' value={cvc} />
     {errors.cvc  ? (<div className='error-message'>{errors.cvc}</div>) : null }
     </div>
     
