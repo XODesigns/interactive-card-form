@@ -1,6 +1,6 @@
-import {useEffect, useState} from 'react'
+
 // import {useForm} from 'react-hook-form'
-import { formik, Form, Field, useFormik, useFormikContext } from 'formik'
+import { useFormik } from 'formik'
 // import * as Yup from 'yup'
 import Front from './images/bg-card-front.png'
 import Back from './images/bg-card-back.png'
@@ -8,69 +8,6 @@ import Back from './images/bg-card-back.png'
 
 
 function App() {
-const [name, setName]= useState("")
-const [cardNumber, setCardNumber] = useState("")
-const [month, setMonth] = useState("MM")
-const [year, setYear] = useState("YY")
-const [cvc, setCvc] = useState("")
-// const {register, handleSubmit, setValue} = useForm()
-// const onSubmit = data => console.log(data);
-
-
-function handleName(event){
-  const newValue = event.target.value
-setName(newValue)
-}
-
-function handleNumber(event){
-  const newValue = event.target.value
-  .replace(/\s|[^a-z0-9]+/g, "")
-        .match(/.{1,4}/g)
-        ?.join(" ") ?? "";
-setCardNumber(newValue)
-}
-
-function handleMonth(event){
-
-const min = 1
-const max = 12
-
-const newMonth = Math.max(min, Math.min(max, Number(event.target.value)))
-
-setMonth(newMonth)
-}
-
-function handleYear(event){
-
-const min = 1
-const max = 99
-
-const newYear = Math.max(min, Math.min(max, Number(event.target.value)))
-setYear(newYear)
-
-}
-
-
-function handleCvc(event){
-  const min = 1
-  const max = 999
-  
-  const newCvc= Math.max(min, Math.min(max, Number(event.target.value)))
-  setCvc(newCvc)
-
-}
-
-//Dynamic number split, so the numbers can be updated correctly.
-const numberPlaceholder = "0000 0000 0000 0000"
-
-
-// const FormObserver = () => {
-//   const { values } = useFormikContext();
-//   useEffect(() => {
-//     console.log("FormObserver::values", values);
-//   }, [values]);
-//   return null;
-// };
 
 
 
@@ -86,34 +23,51 @@ const formik = useFormik({
   validate() {
     const errors = {};
 
-    if(formik.touched.holderName && !formik.values.holderName){
+    if(!formik.values.holderName){
+      errors.holderName = "Name Required"
+    }else if(formik.touched.holderName){
       errors.holderName = "Name Required"
     } else if (!/^[A-Za-z]*$/.test(formik.values.holderName)){
       errors.holderName = "Cardholder name should contain only letters"
     }
-    if(formik.touched.cardNumber && !formik.values.cardNumber){
+
+    if(!formik.values.cardNumber){
+      errors.cardNumber = "Card Number Required"
+    } else if(formik.touched.cardNumber){
       errors.cardNumber = "Card Number Required"
     } else if (!/^[0-9]*$/.test(formik.values.cardNumber)){
       errors.cardNumber = "Wrong format, numbers only"
     }
-    if(formik.touched.expMonth && !formik.values.expMonth){
+
+    if(!formik.values.expMonth){
+      errors.expMonth = "Can't be blank"
+    } else if(formik.touched.expMonth){
       errors.expMonth = "Can't be blank"
     }
-    if(formik.touched.expYear && !formik.values.expYear){
+  
+    if(!formik.values.expYear){
       errors.expYear = "Can't be blank"
+    } else if(formik.touched.expYear){
+      errors.expYear= "Can't be blank"
     }
+
     if(formik.touched.cvc && !formik.values.cvc){
       errors.cvc = "Can't be blank"
   }
+
+  if(!formik.values.cvc){
+    errors.cvc = "Can't be blank"
+  } else if(formik.touched.cvc){
+    errors.cvc = "Can't be blank"
+  }
+
   return errors
 },
-
 onSubmit(values) {
   // alert(JSON.stringify(values, null, 2))
 }
 
 })
-
 
 
   return (
@@ -133,7 +87,7 @@ onSubmit(values) {
     <div className='circle-two'></div>
     </div>
 
-    <p className='card-number'>{formik.values.cardNumber ? formik.values.cardNumber : numberPlaceholder}</p>
+    <p className='card-number'>{formik.values.cardNumber ? formik.values.cardNumber : "0000 0000 0000 0000"}</p>
     
     <div className='name-date'>
     <p className='card-holder'>{formik.values.holderName ? formik.values.holderName : "Jane Appleseed"}</p>
@@ -151,7 +105,7 @@ onSubmit(values) {
 
     </div>
    
-    <form onSubmit ={formik.handleSubmit} className='form'>
+    <form onSubmit={formik.handleSubmit} className={formik.handleSubmit && formik.values ? 'form' : 'hide'}>
 
 
     <label>Cardholder name</label>
