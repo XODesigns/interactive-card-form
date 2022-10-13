@@ -5,17 +5,43 @@ import 'yup-phone'
 import Front from './images/bg-card-front.png'
 import Back from './images/bg-card-back.png'
 
-
+const onSubmit = async (values, actions) => {
+  console.log(values);
+  console.log(actions);
+  await new Promise((resolve) => setTimeout(resolve, 1000));
+  actions.resetForm();
+  actions.setStatus({success: "Thank"})
+};
 
 
 function App() {
 
+  const creditCardSchema = Yup.object().shape({
+    holderName: Yup.string()
+    .matches(/^[A-Za-z]*$/, 'Name should contain only letters')
+    .required('Name is required'),
+    cardNumber: Yup.string()
+    .required('Card number required')
+    .matches(/^[0-9]*$/, 'Wrong format, numbers only'),
+    month: Yup.number()
+    .min(1)
+    .max(12)
+    .required(`Can't be blank`),
+    year: Yup.number()
+    .positive()
+    .required(`Can't be blank`),
+    cvc: Yup.number()
+    .positive()
+    .required(`Can't be blank`)
+  })
 
 const {values,
   handleSubmit,
   touched,
   errors,
   handleChange,
+  isSubmitting,
+    handleBlur,
 } = useFormik({
   initialValues: {
     holderName: '',
@@ -25,26 +51,13 @@ const {values,
     cvc:'',
   },
 
-creditCardSchema: Yup.object().shape({
-  holderName: Yup.string()
-  .required('Name is required'),
-  cardNumber: Yup.string()
-  .required('Card number required')
-  .phone('Wrong format, numbers only'),
-  month: Yup.string()
-  .required(`Can't be blank`),
-  year: Yup.string()
-  .required(`Can't be blank`),
-  cvc: Yup.string()
-  .required(`Can't be blank`)
-}),
+validationSchema: creditCardSchema,
 
-  onSubmit(values) {
-    console.log(values)
-  }
+onSubmit,
+
 })
 
-
+console.log(errors)
 
 const numberPlaceholder = "0000 0000 0000 0000"
 
@@ -88,18 +101,18 @@ const numberPlaceholder = "0000 0000 0000 0000"
 
  
 
-
+    {!isSubmitting ? (
 
    
-    <form className='form' onSubmit={handleSubmit} noValidate>
+    <form className='form' onSubmit={handleSubmit}>
 
     <label>Cardholder name</label>
-    <input className={touched.holderName && !errors.holderName ? "error" : "name"} name="holderName" type="text" placeholder='e.g. Jane Appleseed' value={values.holderName} onChange={handleChange} />
- {!errors.holderName && touched.holderName ? (<div className='error-message'>{errors.holderName}</div>) : null }
+    <input className={touched.holderName && errors.holderName ? "error" : "name"} name="holderName" type="text" placeholder='e.g. Jane Appleseed' value={values.holderName} onChange={handleChange} onBlur={handleBlur} />
+ {errors.holderName && touched.holderName && <div className='error-message'>{errors.holderName}</div>}
 
     <label>Card number</label>
 
-    <input className={errors.cardNumber ? "error" :"name"} name="cardNumber" type="tel" maxLength="19" placeholder='e.g. 1234 5678 9123 0000' value={values.cardNumber} onChange={handleChange} />
+    <input className={errors.cardNumber && touched.cardNumber ? "error" :"name"} name="cardNumber" type="tel" maxLength="19" placeholder='e.g. 1234 5678 9123 0000' value={values.cardNumber} onChange={handleChange} />
     {errors.cardNumber && touched.cardNumber ? (<div className='error-message'>{errors.cardNumber}</div>) : null }
 
     <div className='details'>
@@ -109,26 +122,26 @@ const numberPlaceholder = "0000 0000 0000 0000"
 
     <div className='date-input'>
     {/* <input type="tel" onChange={handleMonth} maxLength="2" placeholder='MM'></input> */}
-     <input className={errors.month ? "error" :"name"} name="month" type="number" onChange={handleChange} placeholder='MM' value={values.month} />
-    <input className={errors.year ? "error" :"name"} name="year" type="number" onChange={handleChange} placeholder='YY' value={values.year} />
+     <input className={errors.month && touched.month ? "error" :"name"} name="month" type="tel" minLength={2} maxLength={2} onChange={handleChange} placeholder='MM' value={values.month} />
+    <input className={errors.year && touched.year ? "error" :"name"} name="year"  type="tel" minLength={2} maxLength={2} onChange={handleChange} placeholder='YY' value={values.year} />
     </div>
-    {errors.month || errors.year  ? (<div className='error-message'>{errors.month}</div>) : null }
+    {(errors.month && touched.month) || (errors.year && touched.year) ? (<div className='error-message'>{errors.month}</div>) : null }
   
     </div>
     
     <div className='cvc'>
     <label>Cvc</label>
-    <input className={errors.cvc ? "error" :"name"} type="number" onChange={handleChange} placeholder='e.g. 123' value={values.cvc} />
-    {errors.cvc  ? (<div className='error-message'>{errors.cvc}</div>) : null }
+    <input className={errors.cvc && touched.cvc ? "error" :"name"} name="cvc" type="tel" minLength={3} maxLength={3} onChange={handleChange} placeholder='e.g. 123' value={values.cvc} />
+    {errors.cvc && touched.cvc && (<div className='error-message'>{errors.cvc}</div>)}
     </div>
     
     </div>
   
 
-    <button type='submit'>confirm</button>
+    <button type='submit' >confirm</button>
 
     </form>
-
+    ) : (<div className="form">Thank You</div>)}
 
     </div>
     </div>
