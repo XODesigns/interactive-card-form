@@ -25,41 +25,29 @@ const formik = useFormik({
 
     if(!formik.values.holderName){
       errors.holderName = "Name Required"
-    }else if(formik.touched.holderName){
-      errors.holderName = "Name Required"
     } else if (!/^[A-Za-z]*$/.test(formik.values.holderName)){
       errors.holderName = "Cardholder name should contain only letters"
     }
 
     if(!formik.values.cardNumber){
       errors.cardNumber = "Card Number Required"
-    } else if(formik.touched.cardNumber){
-      errors.cardNumber = "Card Number Required"
     } else if (!/^[0-9]*$/.test(formik.values.cardNumber)){
       errors.cardNumber = "Wrong format, numbers only"
     }
 
-    if(!formik.values.expMonth){
+    if(!formik.values.expMonth ){
       errors.expMonth = "Can't be blank"
-    } else if(formik.touched.expMonth){
-      errors.expMonth = "Can't be blank"
-    }
+    } 
   
-    if(!formik.values.expYear){
+    if(!formik.values.expYear ){
       errors.expYear = "Can't be blank"
-    } else if(formik.touched.expYear){
-      errors.expYear= "Can't be blank"
-    }
+       }
 
-    if(formik.touched.cvc && !formik.values.cvc){
+
+    if(!formik.touched.cvc ){
       errors.cvc = "Can't be blank"
   }
 
-  if(!formik.values.cvc){
-    errors.cvc = "Can't be blank"
-  } else if(formik.touched.cvc){
-    errors.cvc = "Can't be blank"
-  }
 
   return errors
 },
