@@ -215,3 +215,32 @@ button{
     color:hsl(0, 100%, 66%);
     padding-bottom:12px;
 }
+
+.inner-data{
+    width:300px;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.thanks{
+    text-transform: uppercase;
+    color: hsl(278, 68%, 11%);
+    font-weight: 500;
+    text-align: center;
+    padding-bottom: 0.5vw;
+}
+
+.thanks-message{
+    color:hsl(279, 6%, 55%);
+    font-size:10px;
+    text-align: center;
+    padding-bottom: 1vw;
+}
+
+.complete{
+    width:20%;
+   align-items: center;
+   padding-bottom: 1vw;
+}

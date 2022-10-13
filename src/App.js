@@ -4,14 +4,14 @@ import * as Yup from 'yup'
 import 'yup-phone'
 import Front from './images/bg-card-front.png'
 import Back from './images/bg-card-back.png'
+import Thanks from './images/icon-complete.svg'
 
-const onSubmit = async (values, actions) => {
-  console.log(values);
-  console.log(actions);
-  await new Promise((resolve) => setTimeout(resolve, 1000));
-  actions.resetForm();
-  actions.setStatus({success: "Thank"})
-};
+// const onSubmit = async (values, actions) => {
+//   console.log(values);
+//   console.log(actions);
+//   await new Promise((resolve) => setTimeout(resolve, 1000));
+//   actions.resetForm();
+// };
 
 
 function App() {
@@ -53,8 +53,8 @@ const {values,
 
 validationSchema: creditCardSchema,
 
-onSubmit,
-
+// onSubmit,
+onSubmit(){}
 })
 
 console.log(errors)
@@ -141,7 +141,14 @@ const numberPlaceholder = "0000 0000 0000 0000"
     <button type='submit' >confirm</button>
 
     </form>
-    ) : (<div className="form">Thank You</div>)}
+    ) : (<div className="form">
+    <div className='inner-data'>
+    <img className='complete' src={Thanks} alt="Complete"/>
+    <h1 className='thanks'>Thank You</h1>
+    <p className='thanks-message'>We've added your card details</p>
+    <button type="submit">Continue</button>
+    </div>
+    </div>)}
 
     </div>
     </div>
