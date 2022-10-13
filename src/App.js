@@ -9,15 +9,14 @@ import Back from './images/bg-card-back.png'
 
 
 function App() {
-const [name, setName]= useState("")
-const [cardNumber, setCardNumber] = useState("")
-const [month, setMonth] = useState("MM")
-const [year, setYear] = useState("YY")
-const [cvc, setCvc] = useState("")
 
 
-
-const formik = useFormik({
+const {values,
+  handleSubmit,
+  touched,
+  errors,
+  handleChange,
+} = useFormik({
   initialValues: {
     holderName: '',
     cardNumber: '',
@@ -25,10 +24,8 @@ const formik = useFormik({
     year: '',
     cvc:'',
   },
-//   validationSchema={CreditCardSchema}
 
-
-CreditCardSchema: Yup.object().shape({
+creditCardSchema: Yup.object().shape({
   holderName: Yup.string()
   .required('Name is required'),
   cardNumber: Yup.string()
@@ -41,26 +38,17 @@ CreditCardSchema: Yup.object().shape({
   cvc: Yup.string()
   .required(`Can't be blank`)
 }),
-//    validateOnChange={false},
-// validateOnBlur={false},
+
   onSubmit(values) {
     console.log(values)
   }
 })
 
 
+
 const numberPlaceholder = "0000 0000 0000 0000"
 
 
-// const FormObserver  = () => {
-//   const { values } = useFormikContext();
-//   useEffect(() => {
-//     console.log("FormObserver::values", values);
-//   }, [values]);
-//   return null;
-// };
-
-// console.log(FormObserver)
 
   return (
 
@@ -80,11 +68,11 @@ const numberPlaceholder = "0000 0000 0000 0000"
     <div className='circle-two'></div>
     </div>
 
-    <p className='card-number'>{formik.values.cardNumber ? formik.values.cardNumber : numberPlaceholder}</p>
+    <p className='card-number'>{values.cardNumber ? values.cardNumber : numberPlaceholder}</p>
     
     <div  className='name-date'>
-    <p className='card-holder'>{formik.values.holderName ? formik.values.holderName  : "Jane Appleseed"}</p>
-    <p className='exp-date'>{formik.values.month ? formik.values.month : "00" } / {formik.values.year ? formik.values.year : "00" }</p>
+    <p className='card-holder'>{values.holderName ? values.holderName  : "Jane Appleseed"}</p>
+    <p className='exp-date'>{values.month ? values.month : "00" } / {values.year ? values.year : "00" }</p>
     </div>
 
     </div>
@@ -93,7 +81,7 @@ const numberPlaceholder = "0000 0000 0000 0000"
 
     <div className='card-two'>
     <img src={Back} alt="card back"/>
-    <p className='card-cvc'>{formik.values.cvc  ? formik.values.cvc  : "000"}</p>
+    <p className='card-cvc'>{values.cvc  ? values.cvc  : "000"}</p>
     </div>
 
     </div>
@@ -103,16 +91,16 @@ const numberPlaceholder = "0000 0000 0000 0000"
 
 
    
-    <form className='form' onSubmit={formik.handleSubmit}>
+    <form className='form' onSubmit={handleSubmit} noValidate>
 
     <label>Cardholder name</label>
-    <input className={formik.errors.holderName ? "error" : "name"} name="holderName" type="text" placeholder='e.g. Jane Appleseed' value={formik.values.holderName} onChange={formik.handleChange}  />
-    {formik.errors.holderName && formik.touched.holderName ? (<div className='error-message'>{formik.errors.holderName}</div>) : null }
+    <input className={touched.holderName && !errors.holderName ? "error" : "name"} name="holderName" type="text" placeholder='e.g. Jane Appleseed' value={values.holderName} onChange={handleChange} />
+ {!errors.holderName && touched.holderName ? (<div className='error-message'>{errors.holderName}</div>) : null }
 
     <label>Card number</label>
 
-    <input className={formik.errors.cardNumber ? "error" :"name"} name="cardNumber" type="tel" maxLength="19" placeholder='e.g. 1234 5678 9123 0000' value={formik.values.cardNumber} onChange={formik.handleChange} />
-    {formik.errors.cardNumber && formik.touched.cardNumber ? (<div className='error-message'>{formik.errors.cardNumber}</div>) : null }
+    <input className={errors.cardNumber ? "error" :"name"} name="cardNumber" type="tel" maxLength="19" placeholder='e.g. 1234 5678 9123 0000' value={values.cardNumber} onChange={handleChange} />
+    {errors.cardNumber && touched.cardNumber ? (<div className='error-message'>{errors.cardNumber}</div>) : null }
 
     <div className='details'>
 
@@ -121,17 +109,17 @@ const numberPlaceholder = "0000 0000 0000 0000"
 
     <div className='date-input'>
     {/* <input type="tel" onChange={handleMonth} maxLength="2" placeholder='MM'></input> */}
-     <input className={formik.errors.month ? "error" :"name"} name="month" type="number" onChange={formik.handleChange} placeholder='MM' value={formik.values.month} />
-    <input className={formik.errors.year ? "error" :"name"} name="year" type="number" onChange={formik.handleChange} placeholder='YY' value={formik.values.year} />
+     <input className={errors.month ? "error" :"name"} name="month" type="number" onChange={handleChange} placeholder='MM' value={values.month} />
+    <input className={errors.year ? "error" :"name"} name="year" type="number" onChange={handleChange} placeholder='YY' value={values.year} />
     </div>
-    {formik.errors.month || formik.errors.year  ? (<div className='error-message'>{formik.errors.month}</div>) : null }
+    {errors.month || errors.year  ? (<div className='error-message'>{errors.month}</div>) : null }
   
     </div>
     
     <div className='cvc'>
     <label>Cvc</label>
-    <input className={formik.errors.cvc ? "error" :"name"} type="number" onChange={formik.handleChange} placeholder='e.g. 123' value={formik.values.cvc} />
-    {formik.errors.cvc  ? (<div className='error-message'>{formik.errors.cvc}</div>) : null }
+    <input className={errors.cvc ? "error" :"name"} type="number" onChange={handleChange} placeholder='e.g. 123' value={values.cvc} />
+    {errors.cvc  ? (<div className='error-message'>{errors.cvc}</div>) : null }
     </div>
     
     </div>
