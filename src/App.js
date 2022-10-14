@@ -1,10 +1,11 @@
 import {useRef, useState, useEffect} from 'react'
-import { Formik, Form, Field, useFormikContext, useFormik} from 'formik'
+import {useFormik} from 'formik'
 import * as Yup from 'yup'
 import 'yup-phone'
 import Front from './images/bg-card-front.png'
 import Back from './images/bg-card-back.png'
-import Thanks from './images/icon-complete.svg'
+import Form from './Components/Form'
+import Success from './Success'
 
 // const onSubmit = async (values, actions) => {
 //   console.log(values);
@@ -103,52 +104,9 @@ const numberPlaceholder = "0000 0000 0000 0000"
 
     {!isSubmitting ? (
 
+   <Form  handleSubmit={handleSubmit} errors={errors} touched={touched} handleBlur={handleBlur} values={values} handleChange={handleChange} />
    
-    <form className='form' onSubmit={handleSubmit}>
-
-    <label>Cardholder name</label>
-    <input className={touched.holderName && errors.holderName ? "error" : "name"} name="holderName" type="text" placeholder='e.g. Jane Appleseed' value={values.holderName} onChange={handleChange} onBlur={handleBlur} />
- {errors.holderName && touched.holderName && <div className='error-message'>{errors.holderName}</div>}
-
-    <label>Card number</label>
-
-    <input className={errors.cardNumber && touched.cardNumber ? "error" :"name"} name="cardNumber" type="tel" maxLength="19" placeholder='e.g. 1234 5678 9123 0000' value={values.cardNumber} onChange={handleChange} />
-    {errors.cardNumber && touched.cardNumber ? (<div className='error-message'>{errors.cardNumber}</div>) : null }
-
-    <div className='details'>
-
-    <div className='date'>
-    <label>Exp. date (MM/YY)</label>
-
-    <div className='date-input'>
-    {/* <input type="tel" onChange={handleMonth} maxLength="2" placeholder='MM'></input> */}
-     <input className={errors.month && touched.month ? "error" :"name"} name="month" type="tel" minLength={2} maxLength={2} onChange={handleChange} placeholder='MM' value={values.month} />
-    <input className={errors.year && touched.year ? "error" :"name"} name="year"  type="tel" minLength={2} maxLength={2} onChange={handleChange} placeholder='YY' value={values.year} />
-    </div>
-    {(errors.month && touched.month) || (errors.year && touched.year) ? (<div className='error-message'>{errors.month}</div>) : null }
-  
-    </div>
-    
-    <div className='cvc'>
-    <label>Cvc</label>
-    <input className={errors.cvc && touched.cvc ? "error" :"name"} name="cvc" type="tel" minLength={3} maxLength={3} onChange={handleChange} placeholder='e.g. 123' value={values.cvc} />
-    {errors.cvc && touched.cvc && (<div className='error-message'>{errors.cvc}</div>)}
-    </div>
-    
-    </div>
-  
-
-    <button type='submit' >confirm</button>
-
-    </form>
-    ) : (<div className="form">
-    <div className='inner-data'>
-    <img className='complete' src={Thanks} alt="Complete"/>
-    <h1 className='thanks'>Thank You</h1>
-    <p className='thanks-message'>We've added your card details</p>
-    <button type="submit">Continue</button>
-    </div>
-    </div>)}
+    ) : (<Success />)}
 
     </div>
     </div>
