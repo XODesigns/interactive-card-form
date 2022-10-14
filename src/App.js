@@ -5,7 +5,8 @@ import 'yup-phone'
 import Front from './images/bg-card-front.png'
 import Back from './images/bg-card-back.png'
 import Form from './Components/Form'
-import Success from './Success'
+import Thanks from './images/icon-complete.svg'
+// import Success from './Success'
 
 // const onSubmit = async (values, actions) => {
 //   console.log(values);
@@ -62,7 +63,9 @@ console.log(errors)
 
 const numberPlaceholder = "0000 0000 0000 0000"
 
-
+const handleForm = () =>{
+  
+}
 
   return (
 
@@ -106,7 +109,14 @@ const numberPlaceholder = "0000 0000 0000 0000"
 
    <Form  handleSubmit={handleSubmit} errors={errors} touched={touched} handleBlur={handleBlur} values={values} handleChange={handleChange} />
    
-    ) : (<Success />)}
+    ) : ( <form className="form">
+    <div className='inner-data'>
+    <img className='complete' src={Thanks} alt="Complete"/>
+    <h1 className='thanks'>Thank You</h1>
+    <p className='thanks-message'>We've added your card details</p>
+    <button type="submit" onClick={handleForm} >Continue</button>
+    </div>
+    </form>)}
 
     </div>
     </div>
