@@ -244,3 +244,150 @@ button{
    align-items: center;
    padding-bottom: 1vw;
 }
+
+/*Screen size*/
+
+@media only screen and (max-width:1440px){
+
+    
+.card-one img, .card-two img {
+    width:500px;
+    height:300px;
+}
+
+    .card-two{
+        width:500px;
+    }
+    
+    .card-cvc{
+
+        left:660px;
+
+    }
+
+    .card-number{
+     font-size:2rem ;
+    }
+    
+    .circles{
+        margin-left: 3rem;
+        margin-top:0.5rem;
+    }
+    
+    /* .circle-one{
+        background-color: hsl(0, 0%, 100%);
+        width: 50px;
+        height: 50px;
+        border-radius: 50px;
+        margin-right:12px;
+    }
+    
+    .circle-two{
+        border: 2px solid hsl(0, 0%, 100%);
+        width: 20px;
+        height: 20px;
+        border-radius: 50px;
+    } */
+    
+    
+    /* .name-date{
+     display: flex; 
+     max-width: 600px; 
+     justify-content: center; 
+    } */
+    
+    .card-holder{
+
+        font-size:14px; 
+        margin-left: 3rem;
+        
+    }
+    
+    .exp-date{
+
+        font-size:14px; 
+        margin-right: 3rem;
+    }
+    
+    
+}
+
+
+@media only screen and (max-width:1280px){
+    .inner-container{
+        grid-template-columns: repeat(2, 4%) 15% repeat(2, 15%) 2fr;
+    }
+
+    .card-cvc{
+
+        left:600px;
+
+    }
+}
+
+/* mobile  */
+
+@media only screen and (max-width:1024px){
+
+    
+    .card-one img, .card-two img {
+        width:300px;
+        height:200px;
+    }
+    
+        .card-two{
+            width:500px;
+        }
+        
+        .card-cvc{
+    
+            left:660px;
+    
+        }
+    
+        .card-number{
+         font-size:1.2rem ;
+        }
+        
+        .circles{
+            margin-left: 3rem;
+            margin-top:0.5rem;
+        }
+        
+        /* .circle-one{
+            background-color: hsl(0, 0%, 100%);
+            width: 50px;
+            height: 50px;
+            border-radius: 50px;
+            margin-right:12px;
+        }
+        
+        .circle-two{
+            border: 2px solid hsl(0, 0%, 100%);
+            width: 20px;
+            height: 20px;
+            border-radius: 50px;
+        } */
+        
+        
+        /* .name-date{
+         display: flex; 
+         max-width: 600px; 
+         justify-content: center; 
+        } */
+        
+        .card-holder{
+    
+            font-size:12px; 
+            margin-left: 3rem;
+            
+        }
+        
+        .exp-date{
+    
+            font-size:12px; 
+            margin-right: 3rem;
+        }
+        
+        
+    }
