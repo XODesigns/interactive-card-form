@@ -21,16 +21,14 @@
     padding: 0 10%;
     grid-column: 1/2;
     display: grid;
-    grid-template-columns: 40% 60%;
+    grid-template-columns: 10% 10% 10% 10% 10% 50%;
+
 }
-
-
-
 
 
 /* form styling  */
 .form{
-    grid-column: 2/3;
+    grid-column: 6/7;
     display: flex;
     flex-direction: column;
     max-width: 400px;
@@ -39,6 +37,7 @@
     align-content: center;
     font-size: 12px;
     letter-spacing: 2px;
+    padding-left:20%;
 }
 
 label{
@@ -147,17 +146,20 @@ button{
 /* Card digits styling */
 
 .card-number{
-    text-align: center;
-    font-size:5vmin;
+    text-align: left;
+    font-size:4vmin;
     letter-spacing: 2px;
+    margin-bottom: 5%;
 }
 
 .circles{
     display: flex;
     align-items: center;
+
+    margin-bottom:18%;
 }
 
-/* .circle-one{
+.circle-one{
     background-color: hsl(0, 0%, 100%);
     width: 50px;
     height: 50px;
@@ -170,13 +172,13 @@ button{
     width: 20px;
     height: 20px;
     border-radius: 50px;
-} */
+}
 
 
 .name-date{
  display: flex; 
  max-width: 600px; 
- justify-content: center; 
+ /* justify-content: center;  */
 }
 
 .card-holder{
@@ -185,6 +187,7 @@ button{
     text-align: left;
     text-transform: uppercase;
     letter-spacing: 2px;
+    width:40%;
 }
 
 .exp-date{
@@ -195,8 +198,35 @@ button{
     margin:0;
 }
 
+.cards{
+    grid-column:1/6;
+
+    display: grid;
+    gap:35px;
+}
+
+.card-one{
+    grid-column: 1/5;
+
+    background-repeat: no-repeat;
+    background-size: contain;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    position: relative;
+}
+
+.card-one-container{
+    color:hsl(0, 0%, 100%);
+    position: absolute;
+    width:100%;
+    margin-left: 5%;
+}
+
 .card-two{
-    grid-column: 2/5;
+    grid-column: 2/6;
 
     background-repeat: no-repeat;
     background-size:contain;
@@ -209,7 +239,7 @@ button{
 
 .card-cvc{
     position:absolute;
-    left:780px;
+    left:50vmin;
     color:hsl(0, 0%, 100%);
     letter-spacing: 2px;
 }
@@ -307,6 +337,7 @@ button{
         .card-number{
             grid-column:1/4;
             grid-row:3/4;
+            font-size: 5vmin;
         }
 
         .name-date{
