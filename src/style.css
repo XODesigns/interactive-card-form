@@ -187,7 +187,7 @@ button{
     display: flex;
     flex-direction: column;
     justify-content: center;
-    width:600px;
+
 }
 
 .card-cvc{
@@ -204,7 +204,7 @@ button{
 
 
 
-    @media screen and (max-width:600px){
+    @media screen and (max-width:960px){
         .container{
             display:grid;
             height: 100vh;
@@ -214,7 +214,7 @@ button{
         
         .inner-container{
             grid-column: 1/2;
-            height: 100vh;
+            /* height: 100vh; */
             /* width:90%; */
             background-image:none;
 
@@ -231,7 +231,7 @@ button{
             background-size: 100% 80%;
 
             display: grid;
-            grid-template-columns: 0.5fr 1.5fr 6fr 1.5fr 0.5fr;
+            grid-template-columns: 5% 1.5fr 6fr 1.5fr 5%;
             grid-template-rows: 10% 35% 10% 35% 10%;
         }
 
@@ -260,8 +260,8 @@ button{
             grid-row:1/2;
            /* position:absolute; */
            display: grid;
-           grid-template-columns: 2fr 1fr 4fr 1fr;
-           grid-template-rows: 15% 25% 15% 40%;
+           grid-template-columns: 4fr 2fr 1fr;
+           grid-template-rows: 10% 25% 25% 10%;
 
            padding: 4vw 2vw;
             
@@ -288,10 +288,9 @@ button{
         }
 
         .card-number{
-            grid-column:1/5;
+            grid-column:1/4;
             grid-row:3/4;
         }
-
 
         .name-date{
             grid-column:1/5;
@@ -313,7 +312,8 @@ button{
 
         .card-cvc{
     
-            left:620px;
+            left:80%;
+            /* top:15%; */
             font-size: 12px;
     
         }
@@ -322,8 +322,7 @@ button{
         .card-holder{
     
             font-size:10px; 
-            margin-left: 1rem;
-            
+
         }
         
         .exp-date{
