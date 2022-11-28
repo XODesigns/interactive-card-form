@@ -11,6 +11,9 @@
     grid-template-columns: 100%;
     justify-content: center;
     align-items: center;
+    background-image:url('../src/images/bg-main-desktop.png');
+    background-repeat: no-repeat;
+    background-size: 30% 100%;
 }
 
 .inner-container{
