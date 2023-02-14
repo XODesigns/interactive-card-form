@@ -222,7 +222,6 @@ button{
     color:hsl(0, 0%, 100%);
     position: absolute;
     width:100%;
-    /* margin-left: 5%; */
 }
 
 .card-two{
