@@ -20,7 +20,7 @@ function App() {
 
   const creditCardSchema = Yup.object().shape({
     holderName: Yup.string()
-    .matches(/^[A-Za-z]*$/, 'Name should contain only letters')
+    .matches(/^[A-Za-z ]*$/, 'Name should contain only letters')
     .required('Name is required'),
     cardNumber: Yup.string()
     .required('Card number required')

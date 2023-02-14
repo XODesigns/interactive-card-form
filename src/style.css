@@ -146,8 +146,8 @@ button{
 /* Card digits styling */
 
 .card-number{
-    text-align: left;
-    font-size:4vmin;
+    text-align: center;
+    font-size:2.4rem;
     letter-spacing: 2px;
     margin-bottom: 5%;
 }
@@ -155,7 +155,7 @@ button{
 .circles{
     display: flex;
     align-items: center;
-
+    margin-left: 5%;
     margin-bottom:18%;
 }
 
@@ -177,8 +177,8 @@ button{
 
 .name-date{
  display: flex; 
- max-width: 600px; 
- /* justify-content: center;  */
+ /* max-width: 600px;  */
+ justify-content: center; 
 }
 
 .card-holder{
@@ -222,7 +222,7 @@ button{
     color:hsl(0, 0%, 100%);
     position: absolute;
     width:100%;
-    margin-left: 5%;
+    /* margin-left: 5%; */
 }
 
 .card-two{
@@ -239,7 +239,7 @@ button{
 
 .card-cvc{
     position:absolute;
-    left:50vmin;
+    left:44%;
     color:hsl(0, 0%, 100%);
     letter-spacing: 2px;
 }
