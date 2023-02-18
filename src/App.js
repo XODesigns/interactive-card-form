@@ -62,10 +62,14 @@ onSubmit(){}
 console.log(errors)
 
 const numberPlaceholder = "0000 0000 0000 0000"
+// const numberPlaceholderRegex = numberPlaceholder.match(/\d{4,16} /g)
+// const crdNumber = numberPlaceholderRegex.toString().replace(/^[, ]+|[, ]+$|[, ]+/g, " ").trim()
 
 const handleForm = () =>{
   
 }
+
+
 
   return (
 
