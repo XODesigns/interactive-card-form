@@ -31,7 +31,7 @@ function Form({handleSubmit, errors, touched, handleChange, values, handleBlur})
     
     <div className='cvc'>
     <label>Cvc</label>
-    <input className={errors.cvc && touched.cvc ? "error" :"name"} name="cvc" type="tel" minLength={3} maxLength={3} onChange={handleChange} placeholder='e.g. 123' value={values.cvc} />
+    <input className={errors.cvc && touched.cvc ? "error" :"name cvc-input"} name="cvc" type="tel" minLength={3} maxLength={3} onChange={handleChange} placeholder='e.g. 123' value={values.cvc} />
     {errors.cvc && touched.cvc && (<div className='error-message'>{errors.cvc}</div>)}
     </div>
     
